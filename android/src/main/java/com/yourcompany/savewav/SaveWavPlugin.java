@@ -23,7 +23,7 @@ public class SaveWavPlugin implements MethodCallHandler {
    * Plugin registration.
    */
   private static final String LOG_TAG = "save pcm";
-  private static final String WAV_CHANNEL = "com.yourcompany.micstream/save_wav";"
+  private static final String WAV_CHANNEL = "com.yourcompany.micstream/save_wav";
   public static void registerWith(Registrar registrar) {
     final MethodChannel channel = new MethodChannel(registrar.messenger(), WAV_CHANNEL);
     channel.setMethodCallHandler(new SaveWavPlugin());
@@ -67,7 +67,7 @@ public class SaveWavPlugin implements MethodCallHandler {
   //https://blogs.msdn.microsoft.com/dawate/2009/06/23/intro-to-audio-programming-part-2-demystifying-the-wav-format/
   //http://www.topherlee.com/software/pcm-tut-wavformat.html
   //http://www-mmsp.ece.mcgill.ca/Documents/AudioFormats/WAVE/WAVE.html
-  private byte [] createWavHeader( long totalDataLen,  long totalAudioLen, long longSampleRate, int bitPerSample, int channels){
+  private byte[] createWavHeader( long totalDataLen,  long totalAudioLen, long longSampleRate, int bitPerSample, int channels){
     byte[] header = new byte[44];
     long byteRate  = bitPerSample * channels * longSampleRate / 8;
     header[0] = 'R'; // RIFFWAVE header
