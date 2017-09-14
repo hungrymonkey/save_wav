@@ -1,0 +1,15 @@
+
+import 'dart:core';
+import 'dart:math';
+import 'dart:typed_data';
+
+class Utils{
+  static Uint16List covertShort2Byte(Uint16List audio){
+    Uint8List result = new Uint8List((audio.length*2).floor());
+    for(var i = 0; i < audio.length; i++){
+      result[i*2] = audio[i] & 0xFF;
+      result[i*2+1] = ((audio[i] >> 8) & 0xFF);
+    }
+    return result;
+  }
+}

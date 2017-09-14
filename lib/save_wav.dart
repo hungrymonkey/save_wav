@@ -1,3 +1,5 @@
+import 'Utils';
+
 import 'dart:async';
 import 'dart:typed_data';
 
@@ -9,8 +11,9 @@ class SaveWav {
 
   static Future<Null> saveWavUInt16( String fileName,
       Uint16List audioData, num sampleRate, num channels) =>
+
       _channel.invokeMethod('wav', <String, dynamic> {
-        "audioData" : audioData,
+        "audioData" : Utils.covertShort2Byte(audioData),
         "sampleRate" : sampleRate,
         "channel" : channels,
         "bits" : 16,
