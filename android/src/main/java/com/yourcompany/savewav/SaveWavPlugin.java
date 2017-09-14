@@ -9,7 +9,7 @@ import io.flutter.plugin.common.PluginRegistry.Registrar;
 import android.util.Log;
 import android.os.Environment;
 
-
+import java.util.HashMap;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
@@ -36,7 +36,7 @@ public class SaveWavPlugin implements MethodCallHandler {
       byte [] audioData = (byte []) args.get("audioData");
       int channels = (int) args.get("channel");
       int sampleRate = (int) args.get("sampleRate");
-      int bits = (int) args.get("bits")
+      int bits = (int) args.get("bits");
       String fileName = (String ) args.get("filename");
       saveWav(fileName, audioData, sampleRate, bits, channels);
       result.sucess(1);
@@ -67,7 +67,7 @@ public class SaveWavPlugin implements MethodCallHandler {
   //https://blogs.msdn.microsoft.com/dawate/2009/06/23/intro-to-audio-programming-part-2-demystifying-the-wav-format/
   //http://www.topherlee.com/software/pcm-tut-wavformat.html
   //http://www-mmsp.ece.mcgill.ca/Documents/AudioFormats/WAVE/WAVE.html
-  private byte createWavHeader( long totalDataLen,  long totalAudioLen, long longSampleRate, int bitPerSample, int channels){
+  private byte [] createWavHeader( long totalDataLen,  long totalAudioLen, long longSampleRate, int bitPerSample, int channels){
     byte[] header = new byte[44];
     long byteRate  = bitPerSample * channels * longSampleRate / 8;
     header[0] = 'R'; // RIFFWAVE header
@@ -102,9 +102,9 @@ public class SaveWavPlugin implements MethodCallHandler {
     header[29] = (byte) ((byteRate >> 8) & 0xff);
     header[30] = (byte) ((byteRate >> 16) & 0xff);
     header[31] = (byte) ((byteRate >> 24) & 0xff);
-    header[32] = (byte) bitPerSample * channels/8; // block align
+    header[32] = (byte) (bitPerSample * channels/8); // block align
     header[33] = 0;
-    header[34] = bitPerSample; // bits per sample
+    header[34] = (byte) bitPerSample; // bits per sample
     header[35] = 0;
     header[36] = 'd';
     header[37] = 'a';
