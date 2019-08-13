@@ -1,6 +1,8 @@
 # save_wav
 
-A new Flutter project.
+This project attempts to save audio streams from the flutter platform.
+
+This project is incomplete.
 
 ## Getting Started
 
